@@ -119,10 +119,9 @@ I provide the output of this script in the folder PartC. You may use it as an ex
 
 3. copy the output of .splitVCFsTreeMix to local folder, find the TreeMix input conversion script building on the ScanTools output here: https://github.com/mbohutinska/TreeMix_input. Run:
 
-``
-python3 conversionTreemixMajda.py -i "chapter/" -o "chapter/"
+``python3 conversionTreemixMajda.py -i "chapter/" -o "chapter/"``
 
-``
+
 -i and -o are parameters specifying the input and output folder. Here I use the same folder named 'chapter'
 
 4a. run treemix without migration, with BDO as an ougroup
