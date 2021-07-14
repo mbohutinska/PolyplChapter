@@ -30,7 +30,7 @@ You don't need to install anything, just carefully change paths throughout the s
 test.splitVCFsNorepol(vcf_dir="polyplChapter", min_dp="8",mffg="0.2", mem="16", time_scratch='02:00:00', ncpu="12",overwrite=True, scratch_gb="1",keep_intermediates=False, use_scratch=True,scratch_path="$SCRATCHDIR", pops=['SUB','VEL','TIS','BAL'], print1=False)
 ``
 
-You can find the output of this initial step in the folder PartA and use it as an example dataset for the next steps.
+You can find the output of this initial step in the folder PartA and (after extracting them from .tar.gz to .txt) use it as an example dataset for the next steps.
 
 
 3a. calculate within population metrics - nucleotide diversity, Tajimas D,...
@@ -117,7 +117,7 @@ qsub filter4dVariable.sh
 
 ``test.splitVCFsTreeMix(vcf_dir="polyplChapter", pops=['SUB','VEL','TIS','BAL','BDO'], mem="16", time_scratch='00:40:00', ncpu="5", scratch_path="$SCRATCHDIR",min_dp="8",mffg="0.2", overwrite=True, scratch_gb="8", keep_intermediates=False, use_scratch=True, print1=False) ``
 
-I provide the output of this script in the folder PartC. You may use it as an example dataset for the next steps.
+I provide the output of this script in the folder PartC. You may use it (after extraction from .tar.gz) as an example dataset for the next steps.
 
 3. copy the output of .splitVCFsTreeMix to local folder, find the TreeMix input conversion script building on the ScanTools output here: https://github.com/mbohutinska/TreeMix_input. Run:
 
