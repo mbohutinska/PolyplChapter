@@ -2,11 +2,14 @@
 A tutorial which can guide you through the practical aspects of analyses of diploid-autotetraploid species (associated to Bohutinska et al, 2021: Population genomic analysis of diploid - autopolyploid species)
 
 
-# PART A. POLYPLOIDY TUTORIAL ScanTools - population genetic metrics 
+## PART A. POLYPLOIDY TUTORIAL ScanTools - population genetic metrics 
 
-## 0. Download Scantools from https://github.com/mbohutinska/ScanTools_ProtEvol. You dont need to install anything, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - original ScanTools are developed for slurm. 
+0. Download Scantools from https://github.com/mbohutinska/ScanTools_ProtEvol. 
+You dont need to install anything, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - original ScanTools are developed for slurm. 
 
-## 1. change directory to the locations of ScanTools scripts (here /storage/pruhonice1-ibot/home/holcovam/ScanTools) and place your vcf files into a subfolder in that directory (here polyplChapter) 
+1. change directory 
+to the locations of ScanTools scripts(here /storage/pruhonice1-ibot/home/holcovam/ScanTools) and place your vcf files into a subfolder in that directory (here polyplChapter) 
+
 module add python36-modules-gcc
 python3
 import ScanTools
@@ -27,12 +30,19 @@ cat BAL.WS50.0k_MS50_7ind_WPM.txt | grep "Genome" >> genome.WS50.0k_MS50_7ind_WP
 test.calcPairwisebpm(recode_dir= "VCF_polyplChapter_DP8.M0.2", pops=['SUB','VEL','TIS','BAL'], window_size=50000, min_snps=50, mem=1, ncpu=1, use_repol=False, keep_intermediates=False, time_scratch="0:40:00",scratch_gb=1, print1=False)
 
 cat SUBVEL_WS50000_MS50_BPM.txt | head -n1 >       genome.WS50000_MS50_BPM.txt
+
 cat SUBVEL_WS50000_MS50_BPM.txt | grep "Genome" >> genome.WS50000_MS50_BPM.txt
+
 cat SUBBAL_WS50000_MS50_BPM.txt | grep "Genome" >> genome.WS50000_MS50_BPM.txt
+
 cat SUBTIS_WS50000_MS50_BPM.txt | grep "Genome" >> genome.WS50000_MS50_BPM.txt
+
 cat VELBAL_WS50000_MS50_BPM.txt | grep "Genome" >> genome.WS50000_MS50_BPM.txt
+
 cat VELTIS_WS50000_MS50_BPM.txt | grep "Genome" >> genome.WS50000_MS50_BPM.txt
+
 cat TISBAL_WS50000_MS50_BPM.txt | grep "Genome" >> genome.WS50000_MS50_BPM.txt
+
 
 ## 4. download the results into your local computer
 scp holcovam@nympha.metacentrum.cz:/storage/pruhonice1-ibot/home/holcovam/ScanTools/VCF......./genome* .
