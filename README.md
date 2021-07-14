@@ -16,13 +16,12 @@ You dont need to install anything, just carefully change paths throughout the sc
 to the locations of ScanTools scripts(here /storage/pruhonice1-ibot/home/holcovam/ScanTools) and place your vcf files into a subfolder in that directory (here polyplChapter) 
 
 ``
+
 module add python36-modules-gcc
-
 python3
-
 import ScanTools
-
 test = ScanTools.scantools("/storage/pruhonice1-ibot/home/holcovam/ScanTools") 
+
 ``
 
 
