@@ -7,7 +7,7 @@ A tutorial which can guide you through the practical aspects of analyses of dipl
 0. Download Scantools from https://github.com/mbohutinska/ScanTools_ProtEvol. You will also find there a dedicated readme about the script.
 
 
-You dont need to install anything, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - ScanTools at my repository is developed for slurm. 
+You don't need to install anything, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - ScanTools at my repository are developed for slurm. Then prepare a PopKey which assigns individuals in your dataset into populations. You may find an example PopKey in the folder PartA.
 
 
 1. change directory to the locations of ScanTools scripts (here /storage/pruhonice1-ibot/home/holcovam/ScanTools) and place your vcf files into a subfolder in that directory (here polyplChapter), than initialize them:
@@ -28,7 +28,7 @@ You dont need to install anything, just carefully change paths throughout the sc
 test.splitVCFsNorepol(vcf_dir="polyplChapter", min_dp="8",mffg="0.2", mem="16", time_scratch='02:00:00', ncpu="12",overwrite=True, scratch_gb="1",keep_intermediates=False, use_scratch=True,scratch_path="$SCRATCHDIR", pops=['SUB','VEL','TIS','BAL'], print1=False)
 ``
 
-You can find the output of this initial step in the folder PartA and use it as an example dataset for the next steps
+You can find the output of this initial step in the folder PartA and use it as an example dataset for the next steps.
 
 
 3a. calculate within population metrics - nucleotide diversity, Tajimas D,...
@@ -85,7 +85,7 @@ scp holcovam@nympha.metacentrum.cz:/storage/pruhonice1-ibot/home/holcovam/ScanTo
 
 ``qsub filterScaffoldsChapter.sh ``
 
-
+You will find the filtering script (for slurm cluster) together with the output file in the folder PartB. You may use the output as an example dataset for the next steps.
 
 2. download locally and continue using AdegenetPolyplChapter.R 
 
@@ -94,9 +94,9 @@ scp holcovam@nympha.metacentrum.cz:/storage/pruhonice1-ibot/home/holcovam/ScanTo
 
 
 Converting vcf to TreeMix input, and running TreeMix
+0. Download TreeMix and get familiar with the software (https://bitbucket.org/nygcresearch/treemix/wiki/Home). 
 
-1. to extract variable sites from your vcf with fourfold sites:
-
+1. Extract variable sites from your vcf with fourfold sites. Here we also add an outgroup population from the most ancestral diploid lineage of A. arenosa - BDO. You may find the filtering script (for slurm cluster) in the folder PartC.
 
 ``
 qsub filter4dVariable.sh 
@@ -113,16 +113,19 @@ qsub filter4dVariable.sh
 ``test = ScanTools.scantools("/storage/pruhonice1-ibot/home/holcovam/ScanTools") ``
 
 
-``test.splitVCFsTreeMix(vcf_dir="polyplChapter", pops=['SUB','VEL','TIS','BAL'], mem="16", time_scratch='00:40:00', ncpu="5", scratch_path="$SCRATCHDIR",min_dp="8",mffg="0.2", overwrite=True, scratch_gb="8", keep_intermediates=False, use_scratch=True, print1=False) #``
+``test.splitVCFsTreeMix(vcf_dir="polyplChapter", pops=['SUB','VEL','TIS','BAL','BDO'], mem="16", time_scratch='00:40:00', ncpu="5", scratch_path="$SCRATCHDIR",min_dp="8",mffg="0.2", overwrite=True, scratch_gb="8", keep_intermediates=False, use_scratch=True, print1=False) ``
 
-3. copy the output of .splitVCFsTreeMix to local folder, run:
+I provide the output of this script in the folder PartC. You may use it as an example dataset for the next steps.
+
+3. copy the output of .splitVCFsTreeMix to local folder, find the TreeMix input conversion script building on the ScanTools output here: https://github.com/mbohutinska/TreeMix_input. Run:
 
 ``
 python3 conversionTreemixMajda.py -i "chapter/" -o "chapter/"
+
 ``
+-i and -o are parameters specifying the input and output folder. Here I use the same folder named 'chapter'
 
-
-4a. run treemix without migration
+4a. run treemix without migration, with BDO as an ougroup
 
 ``
 treemix -i chapter/treemix_input.table.gz -root BDO -o chapter/subs_mig0_boot0 -k 25
@@ -139,7 +142,7 @@ treemix -i chapter/treemix_input.table.gz -root BDO -m 1 -o chapter/subs_mig1_bo
 ``
 
 
-5. find optimal n. of migrations, visualize the tree
+5. find optimal n. of migrations, visualize the tree. You may find the script in the folder PartC.
 
 treemix.R 
 
