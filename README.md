@@ -15,14 +15,14 @@ You dont need to install anything, just carefully change paths throughout the sc
 
 to the locations of ScanTools scripts(here /storage/pruhonice1-ibot/home/holcovam/ScanTools) and place your vcf files into a subfolder in that directory (here polyplChapter) 
 
-``
+``module add python36-modules-gcc``
 
-module add python36-modules-gcc
-python3
-import ScanTools
-test = ScanTools.scantools("/storage/pruhonice1-ibot/home/holcovam/ScanTools") 
+``python3``
 
-``
+``import ScanTools``
+
+``test = ScanTools.scantools("/storage/pruhonice1-ibot/home/holcovam/ScanTools") ``
+
 
 
 2. convert vcf to table
@@ -33,9 +33,7 @@ test.splitVCFsNorepol(vcf_dir="polyplChapter", min_dp="8",mffg="0.2", mem="16", 
 
 3a. calculate within population metrics - nucleotide diversity, Tajimas D,...
 
-``
-test.calcwpm(recode_dir = "VCF_polyplChapter_DP8.M0.2", window_size = 50000, min_snps = 50, pops=['SUB','VEL','TIS','BAL'], mem=1, ncpu=1, scratch_gb=1, use_repol=False, time_scratch="1:20:00", overwrite=True, sampind=7, print1=False)
-
+``test.calcwpm(recode_dir = "VCF_polyplChapter_DP8.M0.2", window_size = 50000, min_snps = 50, pops=['SUB','VEL','TIS','BAL'], mem=1, ncpu=1, scratch_gb=1, use_repol=False, time_scratch="1:20:00", overwrite=True, sampind=7, print1=False)
 
 cat VEL.WS50.0k_MS50_7ind_WPM.txt | head -n1 >>      genome.WS50.0k_MS50_7ind_WPM.txt
 
@@ -45,8 +43,7 @@ cat SUB.WS50.0k_MS50_7ind_WPM.txt | grep "Genome" >> genome.WS50.0k_MS50_7ind_WP
 
 cat TIS.WS50.0k_MS50_7ind_WPM.txt | grep "Genome" >> genome.WS50.0k_MS50_7ind_WPM.txt
 
-cat BAL.WS50.0k_MS50_7ind_WPM.txt | grep "Genome" >> genome.WS50.0k_MS50_7ind_WPM.txt
-``
+cat BAL.WS50.0k_MS50_7ind_WPM.txt | grep "Genome" >> genome.WS50.0k_MS50_7ind_WPM.txt``
 
 3b. calculate between population metrics - Fst, Rho, Dxy,...
 
