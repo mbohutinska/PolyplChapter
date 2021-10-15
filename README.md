@@ -18,7 +18,7 @@ By Magdalena Bohutínská (holcovam@natur.cuni.cz) and Filip Kolář (filip.kola
 
 You don't need to install ScanTools, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - ScanTools at my repository are developed for PBS. Then prepare a PopKey which assigns individuals in your dataset into populations. You may find an example PopKey in the folder PartA. 
 
- -Requirments: python3 (os, subprocess, pandas, math, datetime, time, glob), GATK3.7, fastsimcoal2
+ - Requirments: python3 (os, subprocess, pandas, math, datetime, time, glob), GATK3.7, fastsimcoal2
 
 
 1. change directory to the locations of ScanTools scripts (here /storage/pruhonice1-ibot/home/holcovam/ScanTools) and place your vcf files into a subfolder in that directory (here polyplChapter), than initialize them:
@@ -38,11 +38,12 @@ You don't need to install ScanTools, just carefully change paths throughout the 
 ``
 test.splitVCFsNorepol(vcf_dir="polyplChapter", min_dp="8",mffg="0.2", mem="16", time_scratch='02:00:00', ncpu="12",overwrite=True, scratch_gb="1",keep_intermediates=False, use_scratch=True,scratch_path="$SCRATCHDIR", pops=['SUB','VEL','TIS','BAL'], print1=False)
 ``
-Here we only remained sites with maximum fraction of filtered genotypes lower than 20% (mffg="0.2") and minimum sequencing depth of a site in individual higher or equalt to 8 (min_dp="8"). For details on other parameters see the ScanTools.py and recode12.py scripts.  
 
-We recommend using vcf with four-fold degenetared or any other nearly-neutral type of sites. In order to correctly estimate some of the matrics (like nucleotide diversity) this vcf should contain both invariable and variable sites.
+- Here we only remained sites with maximum fraction of filtered genotypes lower than 20% (mffg="0.2") and minimum sequencing depth of a site in individual higher or equalt to 8 (min_dp="8"). For details on other parameters see the ScanTools.py and recode12.py scripts.  
 
-You can find the output of this initial step in the folder PartA and (after extracting them from .tar.gz to .txt) use it as an example dataset for the next steps.
+- We recommend using vcf with four-fold degenetared or any other nearly-neutral type of sites. In order to correctly estimate some of the matrics (like nucleotide diversity) this vcf should contain both invariable and variable sites.
+
+- You can find the output of this initial step in the folder PartA and (after extracting them from .tar.gz to .txt) use it as an example dataset for the next steps.
 
 
 3a. calculate within population metrics - nucleotide diversity, Tajimas D,...
@@ -101,7 +102,7 @@ scp holcovam@nympha.metacentrum.cz:/storage/pruhonice1-ibot/home/holcovam/ScanTo
 
 You will find the filtering script (for slurm cluster) together with the output file in the folder PartB. You may use the output as an example dataset for the next steps.
 
-2. download locally and continue using AdegenetPolyplChapter.R 
+2. download locally and continue the tutorial in AdegenetPolyplChapter.R by following commands and comments shown by hash tags.
 
 
 ## PART C. POLYPLOIDY TUTORIAL treemix
@@ -110,7 +111,7 @@ You will find the filtering script (for slurm cluster) together with the output 
 Converting vcf to TreeMix input, and running TreeMix
 0. Download TreeMix and get familiar with the software (https://bitbucket.org/nygcresearch/treemix/wiki/Home). 
 
-1. Extract variable sites from your vcf with fourfold sites. Here we also add an outgroup population from the most ancestral diploid lineage of A. arenosa - BDO. You may find the filtering script (for slurm cluster) in the folder PartC.
+1. Extract variable sites from your vcf with fourfold sites. Here we also add an outgroup population from the most ancestral diploid lineage of A. arenosa - BDO. You may find the filtering script (for PBS cluster) in the folder PartC.
 
 ``
 qsub filter4dVariable.sh 
