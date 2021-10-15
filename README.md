@@ -1,5 +1,12 @@
 # PolyplChapter
-A tutorial which can guide you through the practical aspects of analyses of diploid-autotetraploid species (associated to Bohutínská et al, 2021: Population genomic analysis of diploid - autopolyploid species)
+A tutorial which can guide you through the practical aspects of analyses of diploid-autotetraploid species (associated to Bohutínská et al, 2021: Population genomic analysis of diploid - autopolyploid species). 
+
+Part A covers a conversion of VCF to ScanTools table format and calculation of within- and between- population genomic metrics.
+
+Part B introduces poplation genetic structure reconstruction with adegenet.
+
+Part C describes population structure and admixture analysis with TreeMix.
+
 
 By Magdalena Bohutínská (holcovam@natur.cuni.cz) and Filip Kolář (filip.kolar@gmail.com )
 
@@ -9,7 +16,9 @@ By Magdalena Bohutínská (holcovam@natur.cuni.cz) and Filip Kolář (filip.kola
 0. Download Scantools from https://github.com/mbohutinska/ScanTools_ProtEvol. You will also find there a dedicated readme about the script.
 
 
-You don't need to install anything, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - ScanTools at my repository are developed for slurm. Then prepare a PopKey which assigns individuals in your dataset into populations. You may find an example PopKey in the folder PartA.
+You don't need to install ScanTools, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - ScanTools at my repository are developed for PBS. Then prepare a PopKey which assigns individuals in your dataset into populations. You may find an example PopKey in the folder PartA. 
+
+ -Requirments: python3 (os, subprocess, pandas, math, datetime, time, glob), GATK3.7, fastsimcoal2
 
 
 1. change directory to the locations of ScanTools scripts (here /storage/pruhonice1-ibot/home/holcovam/ScanTools) and place your vcf files into a subfolder in that directory (here polyplChapter), than initialize them:
@@ -24,11 +33,14 @@ You don't need to install anything, just carefully change paths throughout the s
 
 
 
-2. before starting any popgen calculations with ScanTools, convert vcf to table. We recommend using vcf with four-fold degenetared or any other nearly-neutral type of sites. In order to correctly estimate some of the matrics (like nucleotide diversity) this vcf should contain both invariable and variable sites.
+2. before starting any popgen calculations with ScanTools, convert vcf to table by following command in ScanTools: 
 
 ``
 test.splitVCFsNorepol(vcf_dir="polyplChapter", min_dp="8",mffg="0.2", mem="16", time_scratch='02:00:00', ncpu="12",overwrite=True, scratch_gb="1",keep_intermediates=False, use_scratch=True,scratch_path="$SCRATCHDIR", pops=['SUB','VEL','TIS','BAL'], print1=False)
 ``
+Here we only remained sites with maximum fraction of filtered genotypes lower than 20% (mffg="0.2") and minimum sequencing depth of a site in individual higher or equalt to 8 (min_dp="8"). For details on other parameters see the ScanTools.py and recode12.py scripts.  
+
+We recommend using vcf with four-fold degenetared or any other nearly-neutral type of sites. In order to correctly estimate some of the matrics (like nucleotide diversity) this vcf should contain both invariable and variable sites.
 
 You can find the output of this initial step in the folder PartA and (after extracting them from .tar.gz to .txt) use it as an example dataset for the next steps.
 
