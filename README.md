@@ -16,7 +16,7 @@ By Magdalena Bohutínská (holcovam@natur.cuni.cz) and Filip Kolář (filip.kola
 0. Download Scantools from https://github.com/mbohutinska/ScanTools_ProtEvol. You will also find there a dedicated readme about the script.
 
 
-You don't need to install ScanTools, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - ScanTools at my repository are developed for PBS. Then prepare a PopKey which assigns individuals in your dataset into populations. You may find an example PopKey in the folder PartA. 
+You don't need to install ScanTools, just carefully change paths throughout the script. Also, make sure to modify it to your cluster system - ScanTools at my repository are developed for PBS. Then prepare a PopKey which assigns individuals in your dataset into populations, each population named by 3 letter code (here 'SUB','VEL','TIS','BAL'). You may find an example PopKey in the folder PartA. 
 
  - Requirments: python3 (os, subprocess, pandas, math, datetime, time, glob), GATK3.7, fastsimcoal2
 
@@ -39,7 +39,7 @@ You don't need to install ScanTools, just carefully change paths throughout the 
 test.splitVCFsNorepol(vcf_dir="polyplChapter", min_dp="8",mffg="0.2", mem="16", time_scratch='02:00:00', ncpu="12",overwrite=True, scratch_gb="1",keep_intermediates=False, use_scratch=True,scratch_path="$SCRATCHDIR", pops=['SUB','VEL','TIS','BAL'], print1=False)
 ``
 
-- Here we only remained sites with maximum fraction of filtered genotypes lower than 20% (mffg="0.2") and minimum sequencing depth of a site in individual higher or equalt to 8 (min_dp="8"). For details on other parameters see the ScanTools.py and recode12.py scripts.  
+- Here we only remained sites with maximum fraction of filtered genotypes lower than 20% (mffg="0.2") and minimum sequencing depth of a site in individual higher or equalt to 8 (min_dp="8"). vcf_dir parameter specifies relative path to your folder with vcfs. For details on other parameters see the ScanTools.py and recode12.py scripts.  
 
 - We recommend using vcf with four-fold degenetared or any other nearly-neutral type of sites. In order to correctly estimate some of the matrics (like nucleotide diversity) this vcf should contain both invariable and variable sites.
 
@@ -111,7 +111,7 @@ You will find the filtering script (for slurm cluster) together with the output 
 Converting vcf to TreeMix input, and running TreeMix
 0. Download TreeMix and get familiar with the software (https://bitbucket.org/nygcresearch/treemix/wiki/Home). 
 
-1. Extract variable sites from your vcf with fourfold sites. Here we also add an outgroup population from the most ancestral diploid lineage of A. arenosa - BDO. You may find the filtering script (for PBS cluster) in the folder PartC.
+1. To run TreeMix, you need a vcf with variable sites only; you can extract them using filter4dVariable.sh script. For the analysis, we recommend using putatively neutral four-fold degenerate variants only. Here we also add an outgroup population from the most ancestral diploid lineage of A. arenosa - BDO. You may find the filtering script (for PBS cluster) in the folder PartC.
 
 ``
 qsub filter4dVariable.sh 
@@ -132,7 +132,9 @@ qsub filter4dVariable.sh
 
 I provide the output of this script in the folder PartC. You may use it (after extraction from .tar.gz) as an example dataset for the next steps.
 
-3. copy the output of .splitVCFsTreeMix to local folder, find the TreeMix input conversion script building on the ScanTools output here: https://github.com/mbohutinska/TreeMix_input. Run:
+3. copy the output of .splitVCFsTreeMix to local folder and run following steps on your local computer. Here I copied the output files (POP_tm.table) to the folder ./treemix/chaper and I'm running the command from the folder ./treemix. 
+
+- You can find the TreeMix input conversion script building on the ScanTools output here: https://github.com/mbohutinska/TreeMix_input. Run:
 
 ``python3 conversionTreemixMajda.py -i "chapter/" -o "chapter/"``
 
