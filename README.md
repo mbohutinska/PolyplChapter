@@ -100,7 +100,7 @@ scp holcovam@nympha.metacentrum.cz:/storage/pruhonice1-ibot/home/holcovam/ScanTo
 
 ``qsub filterScaffoldsChapter.sh ``
 
-You will find the filtering script (for slurm cluster) together with the output file in the folder PartB. You may use the output as an example dataset for the next steps.
+You will find the filtering script (for PBS cluster) together with the output file in the folder PartB. You may use the output as an example dataset for the next steps.
 
 2. download locally and continue the tutorial in AdegenetPolyplChapter.R by following commands and comments shown by hash tags.
 
@@ -111,7 +111,7 @@ You will find the filtering script (for slurm cluster) together with the output 
 Converting vcf to TreeMix input, and running TreeMix
 0. Download TreeMix and get familiar with the software (https://bitbucket.org/nygcresearch/treemix/wiki/Home). 
 
-1. To run TreeMix, you need a vcf with variable sites only; you can extract them using filter4dVariable.sh script. For the analysis, we recommend using putatively neutral four-fold degenerate variants only. Here we also add an outgroup population from the most ancestral diploid lineage of A. arenosa - BDO. You may find the filtering script (for PBS cluster) in the folder PartC.
+1. To run TreeMix, you need a vcf with variable sites only; you can prepare such VCF using filter4dVariable.sh script. For the analysis, we recommend using putatively neutral four-fold degenerate variants only. Here we also add an outgroup population from the most ancestral diploid lineage of A. arenosa - BDO. You may find the filtering script (filter4dVariable.sh; for PBS cluster) in the folder PartC.
 
 ``
 qsub filter4dVariable.sh 
